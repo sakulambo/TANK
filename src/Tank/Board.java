@@ -29,7 +29,7 @@ public class Board extends JPanel implements ActionListener {
     public final static int HEIGHT = 535;
     public static LinkedList<Bullet> bullets;
     public static LinkedList<Explote> ex;
-    private Explote exp, exp2;
+    private Explote exp;
 
     public Board() {
 
@@ -69,16 +69,9 @@ public class Board extends JPanel implements ActionListener {
                 bullets.get(i).paint(g);
             }
         }
-        for (int i = 0; i < ex.size(); i++) {
-            if (bullet.isVisible()) {
-                if (inBoard(bullet.getX(), bullet.getY())) {
-                    exp = new Explote("exploteBullet.png", 100, 100, 30, 200, true,
-                            (int) bullet.getX(), (int) bullet.getY(), 200);
-                    ex.add(exp);
-                    this.bullet.setVisible(false);
-                    ex.get(i).paint(g);
-                }
-            }
+
+        for (Explote explotes : ex) {
+            explotes.paint(g);
         }
     }
 
@@ -89,10 +82,18 @@ public class Board extends JPanel implements ActionListener {
             if (bullet.isVisible()) {
                 bullets.get(i).move();
                 
-
+                
+                if (!inBoard(bullet.getX(), bullet.getY())) {
+                    bullet.setVisible(false);
+                    exp = new Explote("exploteBullet.png", 60, 60, 18 , 50, false, (int)bullet.getX(), (int)bullet .getY(), 0);
+                    ex.add(exp);
+                }
             }
         }
+        
+        
         repaint();
+
     }
 
     private class Wheel implements MouseWheelListener {
