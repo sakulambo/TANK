@@ -3,30 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tank;
+package GameWithBullet;
 
 import java.awt.Graphics;
 
 /**
- *
- * @author sakulambo
+ * @author Joshua-OC
  */
-public abstract class GraphicObj {
 
+public abstract class GraphicObject {
+    
     protected double x;
     protected double y;
     protected double vx;
     protected double vy;
     protected double angle;
     protected boolean visible;
-
-    public GraphicObj(double x, double y, double vx, double vy, double angle, boolean visible) {
+    
+    public GraphicObject(double x, double y, double vx, double vy, double angle,
+            boolean visible) {
+        
         this.x = x;
         this.y = y;
         this.vx = vx;
         this.vy = vy;
         this.angle = angle;
         this.visible = visible;
+        
     }
 
     public double getX() {
@@ -76,7 +79,15 @@ public abstract class GraphicObj {
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
-
+    
     public abstract void paint(Graphics g);
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

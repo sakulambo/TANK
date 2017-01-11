@@ -188,7 +188,7 @@ public class Tank extends ImageObj {
             left = 1;
 
         }
-        if(key == KeyEvent.VK_SPACE){
+        if (key == KeyEvent.VK_SPACE) {
             this.fire(5);
         }
     }
@@ -238,13 +238,13 @@ public class Tank extends ImageObj {
         if (notches == 0) {
 
         }
-    } 
-   
-    public void fire(int power){
-        Bullet b = new Bullet(this, this.getX(), this.getY(),
-                power, power, this.getAngle(), Color.yellow, true);        
-        Board.bullets.add(b);      
-       
     }
-    
+
+    public void fire(int power) {
+        Bullet b = new Bullet(this, this.getX(), this.getY(),
+                power, power, this.getAngle(), Color.yellow, true);
+        Board.bullets.add(b);
+
+    }
+
 }

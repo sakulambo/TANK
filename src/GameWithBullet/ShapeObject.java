@@ -3,25 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tank;
+package GameWithBullet;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Shape;
 
 /**
  *
- * @author sakulambo
+ * @author Joshua-OC
  */
-public abstract class ShapeObj extends GraphicObj {
-
+public abstract class ShapeObject extends GraphicObject{
+    
     protected Shape shape;
     protected Color color;
 
-    public ShapeObj(double x, double y, double vx, double vy, double angle, Shape shape, Color color, boolean visible) {
-        super(x, y, vx, vy, angle, visible);
+    public ShapeObject(double x, double y, double vx, double vy, double angle,
+            boolean visible, Shape shape, Color color) {
+        
+        super(x, y, vx, vy, angle, visible );
+        
         this.shape = shape;
         this.color = color;
+        
     }
 
     public Shape getShape() {
@@ -39,10 +42,9 @@ public abstract class ShapeObj extends GraphicObj {
     public void setColor(Color color) {
         this.color = color;
     }
-
-    @Override
-    public void paint(Graphics g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
+    
+    
+    
+    
 }

@@ -19,8 +19,8 @@ public abstract class ImageObj extends GraphicObj {
     protected String file;
     protected Image image;
 
-    public ImageObj(String file,double x, double y, double vx, double vy, double angle, boolean visible) {
-        super(x, y, vx, vy, angle, visible);      
+    public ImageObj(String file, double x, double y, double vx, double vy, double angle, boolean visible) {
+        super(x, y, vx, vy, angle, visible);
         this.file = file;
         this.image = (new ImageIcon(file)).getImage();
         this.width = image.getWidth(null);
@@ -106,9 +106,5 @@ public abstract class ImageObj extends GraphicObj {
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
-
-    
-    
-    
 
 }

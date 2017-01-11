@@ -3,13 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tank;
+package GameWithBullet;
+
 
 import java.awt.*;
+import java.awt.geom.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import javax.swing.*;
 
-public class Explote extends ImageObj {
 
-    // Image of animation.
+
+
+public class Explote extends ImageObject{
+	    // Image of animation.
     private Image animImage;
 
     // Width of one frame in animated image.
@@ -36,9 +43,7 @@ public class Explote extends ImageObj {
     // Should animation repeat in loop?
     private boolean loop;
 
-    /**
-     * x and y coordinates. Where to draw the animation on the screen?
-     */
+    /** x and y coordinates. Where to draw the animation on the screen? */
     public int x;
     public int y;
 
@@ -48,37 +53,35 @@ public class Explote extends ImageObj {
     // Ending x coordinate of the current frame in the animation image.
     private int endingXOfFrameInImage;
 
-    /**
-     * State of animation. Is it still active or is it finished? We need this so
-     * that we can check and delete animation when is it finished.
-     */
+    /** State of animation. Is it still active or is it finished? We need this so that we can check and delete animation when is it finished. */
     public boolean active;
-
+    
     // In milliseconds. How long to wait before starting the animation and displaying it?
     private long showDelay;
-
+    
     // At what time was animation created.
     private long timeOfAnimationCration;
 
+
     /**
      * Creates animation.
-     *
+     * 
      * @param animImage Image of animation.
      * @param frameWidth Width of the frame in animation image "animImage".
-     * @param frameHeight Height of the frame in animation image "animImage" -
-     * height of the animation image "animImage".
+     * @param frameHeight Height of the frame in animation image "animImage" - height of the animation image "animImage".
      * @param numberOfFrames Number of frames in the animation image.
-     * @param frameTime Amount of time that each frame will be shown before
-     * moving to the next one in milliseconds.
+     * @param frameTime Amount of time that each frame will be shown before moving to the next one in milliseconds.
      * @param loop Should animation repeat in loop?
      * @param x x coordinate. Where to draw the animation on the screen?
      * @param y y coordinate. Where to draw the animation on the screen?
-     * @param showDelay In milliseconds. How long to wait before starting the
-     * animation and displaying it?
+     * @param showDelay In milliseconds. How long to wait before starting the animation and displaying it?
      */
-    public Explote(String animImage, int frameWidth, int frameHeight, int numberOfFrames, long frameTime, boolean loop, int x, int y, long showDelay) {
+//    public Explote(String animImage, int frameWidth, int frameHeight, int numberOfFrames, long frameTime, boolean loop, int x, int y, long showDelay){
+    
+     public Explote(String animImage, int frameWidth, int frameHeight, int numberOfFrames,
+             long frameTime, boolean loop, int x, int y, long showDelay){ 
+         
         super(animImage, x, y, 0, 0, 0, true);
-
         this.animImage = super.getImage();
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
@@ -86,11 +89,11 @@ public class Explote extends ImageObj {
         this.frameTime = frameTime;
         this.loop = loop;
 
-        super.x = x - this.frameWidth / 2;
-        super.y = y - this.frameHeight / 2;
-
+        this.x = x- this.frameWidth/2;
+        this.y = y-this.frameHeight/2;
+        
         this.showDelay = showDelay;
-
+        
         timeOfAnimationCration = System.currentTimeMillis();
 
         startingXOfFrameInImage = 0;
@@ -100,6 +103,7 @@ public class Explote extends ImageObj {
         timeForNextFrame = startingFrameTime + this.frameTime;
         currentFrameNumber = 0;
         active = true;
+      
     }
 
     public Image getAnimImage() {
@@ -172,8 +176,10 @@ public class Explote extends ImageObj {
 
     public void setLoop(boolean loop) {
         this.loop = loop;
-
+        
     }
+
+
 
     public int getStartingXOfFrameInImage() {
         return startingXOfFrameInImage;
@@ -214,36 +220,41 @@ public class Explote extends ImageObj {
     public void setTimeOfAnimationCration(long timeOfAnimationCration) {
         this.timeOfAnimationCration = timeOfAnimationCration;
     }
+     
+     
+
 
     /**
      * Changes the coordinates of the animation.
-     *
+     * 
      * @param x x coordinate. Where to draw the animation on the screen?
      * @param y y coordinate. Where to draw the animation on the screen?
      */
-    public void changeCoordinates(int x, int y) {
+    public void changeCoordinates(int x, int y){
         this.x = x;
         this.y = y;
     }
 
+
     /**
-     * It checks if it's time to show next frame of the animation. It also
-     * checks if the animation is finished.
+     * It checks if it's time to show next frame of the animation.
+     * It also checks if the animation is finished.
      */
-    private void Update() {
-        if (timeForNextFrame <= System.currentTimeMillis()) {
+    private void Update(){
+        if(timeForNextFrame <= System.currentTimeMillis())
+        {    
 
             // Next frame.
-            currentFrameNumber++;
+            currentFrameNumber++;           
 
             // If the animation is reached the end, we restart it by seting current frame to zero. If the animation isn't loop then we set that animation isn't active.
-            if (currentFrameNumber >= numberOfFrames) {
-                currentFrameNumber = 0;
+            if(currentFrameNumber >= numberOfFrames)
+            {
+                currentFrameNumber = 0;      
 
                 // If the animation isn't loop then we set that animation isn't active.
-                if (!loop) {
+                if(!loop)
                     active = false;
-                }
             }
             // Starting and ending coordinates for cuting the current frame image out of the animation image.
             startingXOfFrameInImage = currentFrameNumber * frameWidth;
@@ -256,17 +267,17 @@ public class Explote extends ImageObj {
 
     /**
      * Draws current frame of the animation.
-     *
+     * 
      * @param g2d Graphics2D
      */
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics g){
         this.Update();
-
+        
         Graphics2D g2d = (Graphics2D) g;
-        if (this.active && this.timeOfAnimationCration + this.showDelay <= System.currentTimeMillis()) {
-            g2d.drawImage(animImage, x, y, x + frameWidth, y + frameHeight, startingXOfFrameInImage, 0, endingXOfFrameInImage, frameHeight, null);
-        }
-
+        if(this.active && this.timeOfAnimationCration + this.showDelay <= System.currentTimeMillis())
+            g2d.drawImage(animImage, x, y, x + frameWidth, y + frameHeight, startingXOfFrameInImage, 0, endingXOfFrameInImage, frameHeight, null);       
+                    
+            
     }
 }

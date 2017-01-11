@@ -81,17 +81,16 @@ public class Board extends JPanel implements ActionListener {
         for (int i = 0; i < bullets.size(); i++) {
             if (bullet.isVisible()) {
                 bullets.get(i).move();
-                
-                
+
                 if (!inBoard(bullet.getX(), bullet.getY())) {
                     bullet.setVisible(false);
-                    exp = new Explote("exploteBullet.png", 60, 60, 18 , 50, false, (int)bullet.getX(), (int)bullet .getY(), 0);
+                    exp = new Explote("exploteBullet.png", 60, 60, 18, 50, 
+                            false, (int) bullet.getX(), (int) bullet.getY(), 0);
                     ex.add(exp);
                 }
             }
         }
-        
-        
+
         repaint();
 
     }

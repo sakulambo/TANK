@@ -1,10 +1,10 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package Tank;
-  
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -75,7 +75,7 @@ public class TankPiece extends ImageObj {
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
-    
+
     public double getX() {
         return x;
     }
@@ -100,20 +100,15 @@ public class TankPiece extends ImageObj {
         this.angle = angle;
     }
 
-    
     public void paint(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;        
+        Graphics2D g2d = (Graphics2D) g;
         AffineTransform at = new AffineTransform();
         at.translate(this.getX() + this.getVx(),
-                this.getY()+ this.getVy());
+                this.getY() + this.getVy());
         at.rotate(Math.toRadians(this.getAngle()),
                 (this.getWidth() / 2),
                 (this.getHeight() / 2));
         g2d.drawImage(this.getImage(), at, null);
     }
 
-  
-    
-    
-    
 }

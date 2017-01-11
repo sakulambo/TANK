@@ -27,24 +27,20 @@ public class Bullet extends ShapeObj {
     public Bullet(Tank owner, double x, double y, double vx, double vy, double angle, Color color, boolean visible) {
         super(0, 0, 4, 4, owner.getTurret().getAngle(), null, color, true);
 
-        AffineTransform transformer = AffineTransform.getRotateInstance
-        (Math.toRadians(owner.getTurret().getAngle()), owner.getX()
-        + (owner.getWidth() / 2) - 2, owner.getY() + (owner.getHeight() / 2) - 3);
+        AffineTransform transformer = AffineTransform.getRotateInstance(Math.toRadians(owner.getTurret().getAngle()), owner.getX()
+                + (owner.getWidth() / 2) - 2, owner.getY() + (owner.getHeight() / 2) - 3);
 
-        
         Point2D before = new Point2D.Double(owner.getX() + 15, owner.getY() - 5);
         Point2D after = new Point2D.Double();
         after = transformer.transform(before, after);
         Ellipse2D.Double ed = new Ellipse2D.Double(after.getX(), after.getY(), power, power);
-     
-        
+
         this.setShape(ed);
         this.setPower(5);
         this.setOwner(owner);
         this.setX(after.getX());
         this.setY(after.getY());
     }
-
 
     public int getPower() {
         return power;
@@ -140,13 +136,13 @@ public class Bullet extends ShapeObj {
                 RenderingHints.VALUE_RENDER_QUALITY);
 
         g2d.setRenderingHints(rh);
-        g2d.fill(this.getShape());        
+        g2d.fill(this.getShape());
     }
 
     public void move() {
         this.setX(this.getX() + Utilities.calculCoordenadaX(this.getX(), this.getAngle(), this.getVx()));
         this.setY(this.getY() + Utilities.calculCoordenadaY(this.getY(), this.getAngle(), this.getVy()));
         this.setShape(new Ellipse2D.Double(this.getX(), this.getY(), this.getPower(), this.getPower()));
-    }   
-    
+    }
+
 }
