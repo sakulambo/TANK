@@ -14,11 +14,11 @@ import java.awt.event.MouseWheelEvent;
 
 /**
  *
- * @author glenn
+ * @author sakulambo
  */
-public class Tank extends ImageObj {
-
-    private TankPiece body;
+public class Tank2 extends ImageObj {
+    
+     private TankPiece body;
     private TankPiece turret;
     private TankPiece radar;
 
@@ -28,12 +28,13 @@ public class Tank extends ImageObj {
     private int left;
     private int wup;
     private int wdown;
+    
 
-    public Tank(String file, double x, double y, double vx, double vy, double angle, boolean visible) {
+    public Tank2(String file, double x, double y, double vx, double vy, double angle, boolean visible) {
         super(null, x, y, vx, vy, angle, visible);
-        this.body = new TankPiece("body.png", x, y, 0, 0, angle, visible);
-        this.turret = new TankPiece("turret.png", x, y, 8, -8, angle, visible);
-        this.radar = new TankPiece("radar.png", x, y, 7, 11, angle, visible);
+        this.body = new TankPiece("src/imatges/greenBody.png", x, y, 0, 0, angle, visible);
+        this.turret = new TankPiece("src/imatges/greenTurret.png", x, y, 8, -8, angle, visible);
+        this.radar = new TankPiece("src/imatges/yellowRadar.png", x, y, 7, 11, angle, visible);
         this.width = body.getWidth();
         this.height = body.getHeight();
     }
@@ -171,56 +172,52 @@ public class Tank extends ImageObj {
 
         int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_UP) {
+        if (key == KeyEvent.VK_W) {
 
             up = 1;
         }
 
-        if (key == KeyEvent.VK_DOWN) {
+        if (key == KeyEvent.VK_S) {
             down = 1;
 
         }
 
-        if (key == KeyEvent.VK_RIGHT) {
+        if (key == KeyEvent.VK_D) {
             right = 1;
 
         }
-        if (key == KeyEvent.VK_LEFT) {
+        if (key == KeyEvent.VK_A) {
             left = 1;
 
         }
-//        if (key == KeyEvent.VK_NUMPAD2) {
-//            this.fire(5);
-//        }
+        if (key == KeyEvent.VK_SPACE) {
+            this.fire(5);
+        }
     }
 
     public void keyReleased(KeyEvent e) {
 
         int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_UP) {
+        if (key == KeyEvent.VK_W) {
             up = 0;
         }
 
-        if (key == KeyEvent.VK_DOWN) {
+        if (key == KeyEvent.VK_S) {
             down = 0;
 
         }
 
-        if (key == KeyEvent.VK_RIGHT) {
+        if (key == KeyEvent.VK_D) {
             right = 0;
 
         }
-        if (key == KeyEvent.VK_LEFT) {
+        if (key == KeyEvent.VK_A) {
             left = 0;
 
         }
     }
 
-    public void mouseClicked(MouseEvent e){
-        this.fire(5);
-    }
-    
     
     public void mouseWheelMoved(MouseWheelEvent e) {
 
@@ -247,10 +244,11 @@ public class Tank extends ImageObj {
     }
 
     public void fire(int power) {
-        Bullet b = new Bullet(this, this.getX(), this.getY(),
+        Bullet2 b = new Bullet2(this, this.getX(), this.getY(),
                 power, power, this.getAngle(), Color.yellow, true);
-        Board.bullets.add(b);
+        Board.bullets2.add(b);
 
     }
 
+    
 }

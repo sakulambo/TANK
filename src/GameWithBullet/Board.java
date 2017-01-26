@@ -5,7 +5,6 @@
  */
 package GameWithBullet;
 
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -29,46 +28,42 @@ import javax.swing.Timer;
  * @author Joshua-OC
  */
 public class Board extends JPanel implements ActionListener {
-    
+
     private Timer timer;
     private Tank tank;
-    
+
     private final int DELAY = 10;
-    public final static int WIDTH=790;
-    public final static int HEIGHT=563;
+    public final static int WIDTH = 790;
+    public final static int HEIGHT = 563;
     public static LinkedList<Bullet> bullets;
     public static LinkedList<Explote> explotes;
     private Explote ex;
-    
-    //private Bullet bullet;
 
+    //private Bullet bullet;
     public Board() {
 
         initBoard();
     }
-    
+
     private void initBoard() {
-        
-        addKeyListener(new GameWithBullet.Board.TAdapter());       
+
+        addKeyListener(new GameWithBullet.Board.TAdapter());
         this.addMouseWheelListener(new Wheel2());
         this.addMouseListener(new clicked());
         setFocusable(true);
         setBackground(Color.BLACK);
 
-        tank = new Tank("body", "turret", "radar", 50, 50, 2,2,0, true);
-       
+        tank = new Tank("body", "turret", "radar", 50, 50, 2, 2, 0, true);
+
 //        bullet = new Bullet(this.tank.getX(), this.tank.getY(), 2, 2, 0, true,
 //                new Ellipse2D.Double(), Color.MAGENTA, 50, tank);
-
         bullets = new LinkedList<>();
         explotes = new LinkedList<>();
-        
+
         //ex = new Explote("exploteBullet", 60, 60, 18 , 50, false, 100, 100, 0);
-
         timer = new Timer(DELAY, this);
-        timer.start();        
+        timer.start();
     }
-
 
     @Override
     public void paintComponent(Graphics g) {
@@ -80,58 +75,56 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void doDrawing(Graphics g) {
-        
+
         Graphics2D g2d = (Graphics2D) g;
         tank.paint(g);
-        
-        
+
         for (Bullet b : bullets) {
-            if (b.isVisible()) 
+            if (b.isVisible()) {
                 b.paint(g);
+            }
 
         }
-        
+
         for (Explote ex : explotes) {
             ex.paint(g);
         }
-        
+
         //bullet.paint(g);
-               
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         tank.move();
-        
-        for (Bullet b: bullets) {
-            if (b.isVisible()){
+
+        for (Bullet b : bullets) {
+            if (b.isVisible()) {
                 b.move();
-            
+
                 if (!inBoard(b.getX(), b.getY())) {
                     b.setVisible(false);
-                    ex = new Explote("exploteBullet", 60, 60, 18 , 50, false, (int)b.getX(), (int)b.getY(), 0);
+                    ex = new Explote("exploteBullet", 60, 60, 18, 50, false, (int) b.getX(), (int) b.getY(), 0);
                     explotes.add(ex);
                 }
             }
-            
 
         }
-        
-        
-        
+
         //bullet.move();
-        repaint();  
+        repaint();
     }
-    
+
     private class Wheel2 extends MouseAdapter {
+
         @Override
         public void mouseWheelMoved(MouseWheelEvent mwe) {
             tank.mouseWheelMoved(mwe);
         }
     }
-    
+
     private class clicked extends MouseAdapter {
+
         @Override
         public void mouseClicked(MouseEvent e) {
             tank.mouseClicked(e);
@@ -150,9 +143,9 @@ public class Board extends JPanel implements ActionListener {
             tank.keyPressed(e);
         }
     }
-    
+
     public static boolean inBoard(double x, double y) {
         return (x > 0 && x < Board.WIDTH && y > 0 && y < Board.HEIGHT);
     }
-    
+
 }
