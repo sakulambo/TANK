@@ -40,14 +40,14 @@ public class Tank extends ImageObj {
         this.player = player;
     }
 
-    public String getPlayer(){
+    public String getPlayer() {
         return player;
     }
-    
-    public void setPlayer(String p){
-        this.player = p ;
+
+    public void setPlayer(String p) {
+        this.player = p;
     }
-    
+
     public double getX() {
         return x;
     }
@@ -135,9 +135,6 @@ public class Tank extends ImageObj {
     public void setHeight(int height) {
         this.height = height;
     }
-    
-    
-    
 
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -181,29 +178,58 @@ public class Tank extends ImageObj {
     }
 
     public void keyPressed(KeyEvent e) {
-
         int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_UP) {
+        if (this.getPlayer().equals("Player1")) {
 
-            up = 1;
+            if (key == KeyEvent.VK_W) {
+                up = 1;
+            }
+
+            if (key == KeyEvent.VK_S) {
+                down = 1;
+            }
+
+            if (key == KeyEvent.VK_D) {
+                right = 1;
+            }
+
+            if (key == KeyEvent.VK_A) {
+                left = 1;
+            }
+
+            if (key == KeyEvent.VK_E) {
+                this.angle++;
+            }
+
+            if (key == KeyEvent.VK_E) {
+                this.angle--;
+            }
+
+            if (key == KeyEvent.VK_SPACE) {
+                this.fire(5);
+            }
+
         }
 
-        if (key == KeyEvent.VK_DOWN) {
-            down = 1;
+        if (this.getPlayer().equals("Player2")) {
+            if (key == KeyEvent.VK_UP) {
 
-        }
+                up = 1;
+            }
 
-        if (key == KeyEvent.VK_RIGHT) {
-            right = 1;
+            if (key == KeyEvent.VK_DOWN) {
+                down = 1;
 
-        }
-        if (key == KeyEvent.VK_LEFT) {
-            left = 1;
+            }
 
-        }
-        if (key == KeyEvent.VK_NUMPAD2) {
-            this.fire(5);
+            if (key == KeyEvent.VK_RIGHT) {
+                right = 1;
+
+            }
+            if (key == KeyEvent.VK_LEFT) {
+                left = 1;
+            }
         }
     }
 
@@ -211,33 +237,57 @@ public class Tank extends ImageObj {
 
         int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_UP) {
-            up = 0;
+        if (this.getPlayer().equals("Player1")) {
+
+            if (key == KeyEvent.VK_W) {
+                up = 0;
+            }
+
+            if (key == KeyEvent.VK_S) {
+                down = 0;
+            }
+
+            if (key == KeyEvent.VK_D) {
+                right = 0;
+            }
+
+            if (key == KeyEvent.VK_A) {
+                left = 0;
+            }
+
         }
 
-        if (key == KeyEvent.VK_DOWN) {
-            down = 0;
+        if (this.getPlayer().equals("Player2")) {
+            if (key == KeyEvent.VK_UP) {
+                up = 0;
+            }
 
-        }
+            if (key == KeyEvent.VK_DOWN) {
+                down = 0;
 
-        if (key == KeyEvent.VK_RIGHT) {
-            right = 0;
+            }
 
-        }
-        if (key == KeyEvent.VK_LEFT) {
-            left = 0;
+            if (key == KeyEvent.VK_RIGHT) {
+                right = 0;
 
+            }
+            if (key == KeyEvent.VK_LEFT) {
+                left = 0;
+            }
         }
     }
 
-    public void mouseClicked(MouseEvent e){
-        this.fire(5);
+    public void mouseClicked(MouseEvent e) {
+        if (this.getPlayer().equals("Player2")) {
+            this.fire(5);
+        }
+
     }
-    
-    
+
     public void mouseWheelMoved(MouseWheelEvent e) {
 
         int notches = e.getWheelRotation();
+
         if (notches < 0) {
 
             double anglet = turret.getAngle();
@@ -257,11 +307,12 @@ public class Tank extends ImageObj {
         if (notches == 0) {
 
         }
+
     }
 
     public void fire(int power) {
         Bullet b = new Bullet(this, Color.yellow, power);
-        Board.bullets.add(b);         
+        Board.bullets.add(b);
     }
 
 }
