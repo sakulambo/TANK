@@ -24,7 +24,7 @@ public class Bullet extends ShapeObj {
     private int power;
     private Tank owner;
 
-    public Bullet(Tank owner, double x, double y, double vx, double vy, double angle, Color color, boolean visible) {
+    public Bullet(Tank owner,Color color,int power) {
         super(0, 0, 4, 4, owner.getTurret().getAngle(), null, color, true);
 
         AffineTransform transformer = AffineTransform.getRotateInstance(Math.toRadians(owner.getTurret().getAngle()), owner.getX()

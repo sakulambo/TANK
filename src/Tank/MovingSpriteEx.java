@@ -13,6 +13,7 @@ public class MovingSpriteEx extends JFrame {
     public MovingSpriteEx() {
 
         initUI();
+        
     }
 
     private void initUI() {
@@ -25,6 +26,7 @@ public class MovingSpriteEx extends JFrame {
         setTitle("SURVIVAL TANK!");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
     }
 
     public static void main(String[] args) {

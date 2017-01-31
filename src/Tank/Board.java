@@ -25,13 +25,12 @@ public class Board extends JPanel implements ActionListener {
 
     private Timer timer;
     private Tank tank, tank2;
-    private Bullet bullet, bullet2;
     private final int DELAY = 10;
     public final static int WIDTH = 755;
     public final static int HEIGHT = 535;
     public static LinkedList<Bullet> bullets;
     public static LinkedList<Bullet> bullets2;
-    public static LinkedList<Explote> ex,ex2;
+    public static LinkedList<Explote> ex, ex2;
     private Explote exp;
 
     public Board() {
@@ -49,8 +48,6 @@ public class Board extends JPanel implements ActionListener {
         setBackground(Color.BLACK);
         tank = new Tank(null, 50.0, 50.0, 1.0, 1.0, 0.0, true);
         tank2 = new Tank(null, 100.0, 100.0, 1.0, 1.0, 0.0, true);
-        bullet = new Bullet(tank, 75, 75, 5, 5, 120, Color.YELLOW, true);
-        bullet2 = new Bullet(tank2, 75, 75, 5, 5, 120, Color.GREEN, true);
         timer = new Timer(DELAY, this);
         timer.start();
         bullets = new LinkedList<>();
@@ -74,16 +71,16 @@ public class Board extends JPanel implements ActionListener {
         Graphics2D g2d = (Graphics2D) g;
         tank.paint(g);
         tank2.paint(g);
-        
-        for (int i = 0; i < bullets.size(); i++) {
-            if (bullet.isVisible()) {
-                bullets.get(i).paint(g);
+
+        for (Bullet b : bullets) {
+            if (b.isVisible()) {
+                b.paint(g);
             }
         }
 
-        for (int i = 0; i < bullets2.size(); i++) {
-            if (bullet2.isVisible()) {
-                bullets2.get(i).paint(g);
+        for (Bullet b : bullets2) {
+            if (b.isVisible()) {
+                b.paint(g);
             }
         }
 
@@ -97,37 +94,35 @@ public class Board extends JPanel implements ActionListener {
         tank.move();
         tank2.move();
         String rutaBullet = "src/imatges/exploteBullet.png";
-        
-        for (int i = 0; i < bullets.size(); i++) {
-            if (bullet.isVisible()) {
-                bullets.get(i).move();
 
-                if (inBoard(bullet.getX(), bullet.getY())) {                    
-                    bullet.setVisible(true);
-                    exp = new Explote(rutaBullet, 60, 60, 18, 50,
-                            false, (int) bullet.getX(), (int) bullet.getY(), 0);
+        for (Bullet b : bullets) {
+            if (b.isVisible()) {
+                b.move();
+
+                if (!inBoard(b.getX(), b.getY())) {
+                    b.setVisible(false);
+                    exp = new Explote(rutaBullet, 60, 60, 18, 50, false, 
+                            (int) b.getX(), (int) b.getY(), 0);
                     ex.add(exp);
 
                 }
             }
         }
-        for (int i = 0; i < bullets2.size(); i++) {
-                if (bullet2.isVisible()) {
-                    bullets2.get(i).move();
+        for (Bullet b: bullets2) {
+            if (b.isVisible()) {
+                b.move();
 
-                    if (!inBoard(bullet2.getX(), bullet2.getY())) {
-                        bullet2.setVisible(true);
-                        System.out.println("hola2");
-                        exp = new Explote(rutaBullet, 60, 60, 18, 50,
-                                false, (int) bullet2.getX(), (int) bullet2.getY(), 0);
-                        ex2.add(exp);
-                    }
+                if (!inBoard(b.getX(), b.getY())) {
+                    b.setVisible(true);
+                    System.out.println("hola25");
+                    exp = new Explote(rutaBullet, 60, 60, 18, 50, false, 
+                            (int) b.getX(), (int) b.getY(), 0);
+                    ex2.add(exp);
                 }
-            }            
+            }
+        }
         repaint();
     }
-
-    
 
     private class Wheel implements MouseWheelListener {
 

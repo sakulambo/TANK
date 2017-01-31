@@ -247,10 +247,9 @@ public class Tank extends ImageObj {
     }
 
     public void fire(int power) {
-        Bullet b = new Bullet(this, this.getX(), this.getY(),
-                power, power, this.getAngle(), Color.yellow, true);
+        Bullet b = new Bullet(this, Color.yellow, power);
         Board.bullets.add(b);
-
+         
     }
 
 }
