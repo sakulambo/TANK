@@ -86,8 +86,8 @@ public class Explote extends ImageObj {
         this.frameTime = frameTime;
         this.loop = loop;
 
-        super.x = x - this.frameWidth / 2;
-        super.y = y - this.frameHeight / 2;
+        this.x = x - this.frameWidth / 2;
+        this.y = y - this.frameHeight / 2;
 
         this.showDelay = showDelay;
 

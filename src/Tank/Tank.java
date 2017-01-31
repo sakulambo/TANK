@@ -28,16 +28,26 @@ public class Tank extends ImageObj {
     private int left;
     private int wup;
     private int wdown;
+    private String player;
 
-    public Tank(String file, double x, double y, double vx, double vy, double angle, boolean visible) {
+    public Tank(String file, double x, double y, double vx, double vy, double angle, boolean visible, String player) {
         super(null, x, y, vx, vy, angle, visible);
         this.body = new TankPiece("body.png", x, y, 0, 0, angle, visible);
         this.turret = new TankPiece("turret.png", x, y, 8, -8, angle, visible);
         this.radar = new TankPiece("radar.png", x, y, 7, 11, angle, visible);
         this.width = body.getWidth();
         this.height = body.getHeight();
+        this.player = player;
     }
 
+    public String getPlayer(){
+        return player;
+    }
+    
+    public void setPlayer(String p){
+        this.player = p ;
+    }
+    
     public double getX() {
         return x;
     }
@@ -125,6 +135,9 @@ public class Tank extends ImageObj {
     public void setHeight(int height) {
         this.height = height;
     }
+    
+    
+    
 
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -248,8 +261,7 @@ public class Tank extends ImageObj {
 
     public void fire(int power) {
         Bullet b = new Bullet(this, Color.yellow, power);
-        Board.bullets.add(b);
-         
+        Board.bullets.add(b);         
     }
 
 }

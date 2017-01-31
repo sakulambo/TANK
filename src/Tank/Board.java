@@ -32,6 +32,7 @@ public class Board extends JPanel implements ActionListener {
     public static LinkedList<Bullet> bullets2;
     public static LinkedList<Explote> ex, ex2;
     private Explote exp;
+    private String rutaBullet = "src/imatges/exploteBullet.png";
 
     public Board() {
 
@@ -46,8 +47,8 @@ public class Board extends JPanel implements ActionListener {
         });
         setFocusable(true);
         setBackground(Color.BLACK);
-        tank = new Tank(null, 50.0, 50.0, 1.0, 1.0, 0.0, true);
-        tank2 = new Tank(null, 100.0, 100.0, 1.0, 1.0, 0.0, true);
+        tank = new Tank(null, 50.0, 50.0, 1.0, 1.0, 0.0, true,"Player1");
+        tank2 = new Tank(null, 100.0, 100.0, 1.0, 1.0, 0.0, true,"Player2");
         timer = new Timer(DELAY, this);
         timer.start();
         bullets = new LinkedList<>();
@@ -93,7 +94,7 @@ public class Board extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         tank.move();
         tank2.move();
-        String rutaBullet = "src/imatges/exploteBullet.png";
+        
 
         for (Bullet b : bullets) {
             if (b.isVisible()) {
@@ -103,24 +104,26 @@ public class Board extends JPanel implements ActionListener {
                     b.setVisible(false);
                     exp = new Explote(rutaBullet, 60, 60, 18, 50, false, 
                             (int) b.getX(), (int) b.getY(), 0);
+                    System.out.println((int)b.getX()+","+ (int)b.getY());
+                     System.out.println((int)exp.getX()+","+ (int)exp.getY());
                     ex.add(exp);
 
                 }
             }
         }
-        for (Bullet b: bullets2) {
-            if (b.isVisible()) {
-                b.move();
-
-                if (!inBoard(b.getX(), b.getY())) {
-                    b.setVisible(true);
-                    System.out.println("hola25");
-                    exp = new Explote(rutaBullet, 60, 60, 18, 50, false, 
-                            (int) b.getX(), (int) b.getY(), 0);
-                    ex2.add(exp);
-                }
-            }
-        }
+//        for (Bullet b: bullets2) {
+//            if (b.isVisible()) {
+//                b.move();
+//
+//                if (!inBoard(b.getX(), b.getY())) {
+//                    b.setVisible(true);
+//                    System.out.println("hola25");
+//                    exp = new Explote(rutaBullet, 60, 60, 18, 50, false, 
+//                            (int) b.getX(), (int) b.getY(), 0);
+//                    ex2.add(exp);
+//                }
+//            }
+//        }
         repaint();
     }
 
