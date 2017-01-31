@@ -189,9 +189,9 @@ public class Tank extends ImageObj {
             left = 1;
 
         }
-//        if (key == KeyEvent.VK_NUMPAD2) {
-//            this.fire(5);
-//        }
+        if (key == KeyEvent.VK_NUMPAD2) {
+            this.fire(5);
+        }
     }
 
     public void keyReleased(KeyEvent e) {
