@@ -30,11 +30,11 @@ public class Tank extends ImageObj {
     private int wdown;
     private String player;
 
-    public Tank(String file, double x, double y, double vx, double vy, double angle, boolean visible, String player) {
+    public Tank(String bod, String turret, String radar,double x, double y, double vx, double vy, double angle, boolean visible, String player) {
         super(null, x, y, vx, vy, angle, visible);
-        this.body = new TankPiece("body.png", x, y, 0, 0, angle, visible);
-        this.turret = new TankPiece("turret.png", x, y, 8, -8, angle, visible);
-        this.radar = new TankPiece("radar.png", x, y, 7, 11, angle, visible);
+        this.body = new TankPiece(bod, x, y, 0, 0, angle, visible);
+        this.turret = new TankPiece(turret, x, y, 8, -8, angle, visible);
+        this.radar = new TankPiece(radar, x, y, 7, 11, angle, visible);
         this.width = body.getWidth();
         this.height = body.getHeight();
         this.player = player;

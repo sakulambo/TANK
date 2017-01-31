@@ -47,8 +47,6 @@ public class Board extends JPanel implements ActionListener {
         });
         setFocusable(true);
         setBackground(Color.BLACK);
-        tank = new Tank(null, 50.0, 50.0, 1.0, 1.0, 0.0, true,"Player1");
-        tank2 = new Tank(null, 100.0, 100.0, 1.0, 1.0, 0.0, true,"Player2");
         timer = new Timer(DELAY, this);
         timer.start();
         bullets = new LinkedList<>();
