@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.awt.geom.Rectangle2D;
 
 /**
  *
@@ -252,6 +253,10 @@ public class Player2 extends Tank{
      
      public void mouseClicked(MouseEvent e) {        
             this.fire(5);
+    }
+
+    Rectangle2D.Double geBounds() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
    

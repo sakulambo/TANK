@@ -7,6 +7,7 @@ package Tank;
 
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 
 /**
  *
@@ -241,6 +242,10 @@ public class Player1 extends Tank {
             this.setTank(anglet);
         }
 
+    }
+
+    Rectangle2D.Double getBounds() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

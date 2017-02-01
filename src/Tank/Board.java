@@ -8,6 +8,7 @@ package Tank;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.geom.AffineTransform;
 import java.util.LinkedList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -24,7 +26,6 @@ import javax.swing.Timer;
 public class Board extends JPanel implements ActionListener {
 
     private Timer timer;
-    private Tank tank, tank2;
     private Player1 p1;
     private Player2 p2;
     private final int DELAY = 10;
@@ -50,8 +51,8 @@ public class Board extends JPanel implements ActionListener {
         });
         setFocusable(true);
         setBackground(Color.BLACK);
-        p1 = new Player1(rutaImg+"body.png", rutaImg+"turret.png",rutaImg+"radar.png", 50, 50, 5, 5, 0, true);
-        p2 = new Player2(rutaImg+"greenBody.png", rutaImg+"greenTurret.png", rutaImg+"yellowRadar.png", 100, 100, 5, 5, 0, true);
+        p1 = new Player1(rutaImg + "body.png", rutaImg + "turret.png", rutaImg + "radar.png", 50, 50, 5, 5, 0, true);
+        p2 = new Player2(rutaImg + "greenBody.png", rutaImg + "greenTurret.png", rutaImg + "yellowRadar.png", 100, 100, 5, 5, 0, true);
         timer = new Timer(DELAY, this);
         timer.start();
         bullets = new LinkedList<>();
@@ -87,7 +88,6 @@ public class Board extends JPanel implements ActionListener {
 //                b.paint(g);
 //            }
 //        }
-
         for (Explote explotes : ex) {
             explotes.paint(g);
         }
@@ -97,7 +97,6 @@ public class Board extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         p1.move();
         p2.move();
-        
 
         for (Bullet b : bullets) {
             if (b.isVisible()) {
@@ -105,10 +104,10 @@ public class Board extends JPanel implements ActionListener {
 
                 if (!inBoard(b.getX(), b.getY())) {
                     b.setVisible(false);
-                    exp = new Explote(rutaBullet, 60, 60, 18, 50, false, 
+                    exp = new Explote(rutaBullet, 60, 60, 18, 50, false,
                             (int) b.getX(), (int) b.getY(), 0);
-                    System.out.println((int)b.getX()+","+ (int)b.getY());
-                     System.out.println((int)exp.getX()+","+ (int)exp.getY());
+                    System.out.println((int) b.getX() + "," + (int) b.getY());
+                    System.out.println((int) exp.getX() + "," + (int) exp.getY());
                     ex.add(exp);
 
                 }
@@ -128,6 +127,7 @@ public class Board extends JPanel implements ActionListener {
 //            }
 //        }
         repaint();
+        checkCollisions();
     }
 
     private class Wheel implements MouseWheelListener {
@@ -162,6 +162,20 @@ public class Board extends JPanel implements ActionListener {
             p2.fire(5);
         }
 
+    }
+
+    public void checkCollisions() {
+
+        Rectangle.Double r1 = p1.getBounds();
+        Rectangle.Double r2 = p2.geBounds();
+        
+         AffineTransform transform = AffineTransform.getRotateInstance(Math.toRadians(p1.getTurret().getAngle()), p1.getX()
+                + (p1.getWidth() / 2) - 2, p1.getY() + (p1.getHeight() / 2) - 3);
+         r1.setRect(r1);
+
+        if (r1.intersects(r2)) {
+
+        }
     }
 
     public static boolean inBoard(double x,
