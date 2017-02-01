@@ -18,9 +18,9 @@ import java.awt.event.MouseWheelEvent;
  */
 public class Tank extends ImageObj {
 
-    private TankPiece body;
-    private TankPiece turret;
-    private TankPiece radar;
+    protected TankPiece body;
+    protected TankPiece turret;
+    protected TankPiece radar;
 
     private int up;
     private int down;
@@ -28,24 +28,14 @@ public class Tank extends ImageObj {
     private int left;
     private int wup;
     private int wdown;
-    private String player;
 
-    public Tank(String bod, String turret, String radar,double x, double y, double vx, double vy, double angle, boolean visible, String player) {
+    public Tank(String bod, String turret, String radar, double x, double y, double vx, double vy, double angle, boolean visible) {
         super(null, x, y, vx, vy, angle, visible);
         this.body = new TankPiece(bod, x, y, 0, 0, angle, visible);
         this.turret = new TankPiece(turret, x, y, 8, -8, angle, visible);
         this.radar = new TankPiece(radar, x, y, 7, 11, angle, visible);
         this.width = body.getWidth();
         this.height = body.getHeight();
-        this.player = player;
-    }
-
-    public String getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(String p) {
-        this.player = p;
     }
 
     public double getX() {
@@ -180,56 +170,32 @@ public class Tank extends ImageObj {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
-        if (this.getPlayer().equals("Player1")) {
-
-            if (key == KeyEvent.VK_W) {
-                up = 1;
-            }
-
-            if (key == KeyEvent.VK_S) {
-                down = 1;
-            }
-
-            if (key == KeyEvent.VK_D) {
-                right = 1;
-            }
-
-            if (key == KeyEvent.VK_A) {
-                left = 1;
-            }
-
-            if (key == KeyEvent.VK_E) {
-                this.angle++;
-            }
-
-            if (key == KeyEvent.VK_E) {
-                this.angle--;
-            }
-
-            if (key == KeyEvent.VK_SPACE) {
-                this.fire(5);
-            }
-
+        if (key == KeyEvent.VK_W) {
+            up = 1;
         }
 
-        if (this.getPlayer().equals("Player2")) {
-            if (key == KeyEvent.VK_UP) {
+        if (key == KeyEvent.VK_S) {
+            down = 1;
+        }
 
-                up = 1;
-            }
+        if (key == KeyEvent.VK_D) {
+            right = 1;
+        }
 
-            if (key == KeyEvent.VK_DOWN) {
-                down = 1;
+        if (key == KeyEvent.VK_A) {
+            left = 1;
+        }
 
-            }
+        if (key == KeyEvent.VK_E) {
+            this.angle++;
+        }
 
-            if (key == KeyEvent.VK_RIGHT) {
-                right = 1;
+        if (key == KeyEvent.VK_E) {
+            this.angle--;
+        }
 
-            }
-            if (key == KeyEvent.VK_LEFT) {
-                left = 1;
-            }
+        if (key == KeyEvent.VK_SPACE) {
+            this.fire(5);
         }
     }
 
@@ -237,51 +203,26 @@ public class Tank extends ImageObj {
 
         int key = e.getKeyCode();
 
-        if (this.getPlayer().equals("Player1")) {
-
-            if (key == KeyEvent.VK_W) {
-                up = 0;
-            }
-
-            if (key == KeyEvent.VK_S) {
-                down = 0;
-            }
-
-            if (key == KeyEvent.VK_D) {
-                right = 0;
-            }
-
-            if (key == KeyEvent.VK_A) {
-                left = 0;
-            }
-
+        if (key == KeyEvent.VK_W) {
+            up = 0;
         }
 
-        if (this.getPlayer().equals("Player2")) {
-            if (key == KeyEvent.VK_UP) {
-                up = 0;
-            }
-
-            if (key == KeyEvent.VK_DOWN) {
-                down = 0;
-
-            }
-
-            if (key == KeyEvent.VK_RIGHT) {
-                right = 0;
-
-            }
-            if (key == KeyEvent.VK_LEFT) {
-                left = 0;
-            }
+        if (key == KeyEvent.VK_S) {
+            down = 0;
         }
+
+        if (key == KeyEvent.VK_D) {
+            right = 0;
+        }
+
+        if (key == KeyEvent.VK_A) {
+            left = 0;
+        }
+
     }
 
-    public void mouseClicked(MouseEvent e) {
-        if (this.getPlayer().equals("Player2")) {
+    public void mouseClicked(MouseEvent e) {        
             this.fire(5);
-        }
-
     }
 
     public void mouseWheelMoved(MouseWheelEvent e) {

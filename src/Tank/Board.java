@@ -25,6 +25,8 @@ public class Board extends JPanel implements ActionListener {
 
     private Timer timer;
     private Tank tank, tank2;
+    private Player1 p1;
+    private Player2 p2;
     private final int DELAY = 10;
     public final static int WIDTH = 755;
     public final static int HEIGHT = 535;
@@ -33,6 +35,7 @@ public class Board extends JPanel implements ActionListener {
     public static LinkedList<Explote> ex, ex2;
     private Explote exp;
     private String rutaBullet = "src/imatges/exploteBullet.png";
+    private String rutaImg = "src/imatges/";
 
     public Board() {
 
@@ -47,6 +50,8 @@ public class Board extends JPanel implements ActionListener {
         });
         setFocusable(true);
         setBackground(Color.BLACK);
+        p1 = new Player1(rutaImg+"body.png", rutaImg+"turret.png",rutaImg+"radar.png", 50, 50, 5, 5, 0, true);
+        p2 = new Player2(rutaImg+"greenBody.png", rutaImg+"greenTurret.png", rutaImg+"yellowRadar.png", 100, 100, 5, 5, 0, true);
         timer = new Timer(DELAY, this);
         timer.start();
         bullets = new LinkedList<>();
@@ -68,8 +73,8 @@ public class Board extends JPanel implements ActionListener {
     private void doDrawing(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
-        tank.paint(g);
-        tank2.paint(g);
+        p1.paint(g);
+        p2.paint(g);
 
         for (Bullet b : bullets) {
             if (b.isVisible()) {
@@ -77,11 +82,11 @@ public class Board extends JPanel implements ActionListener {
             }
         }
 
-        for (Bullet b : bullets2) {
-            if (b.isVisible()) {
-                b.paint(g);
-            }
-        }
+//        for (Bullet b : bullets2) {
+//            if (b.isVisible()) {
+//                b.paint(g);
+//            }
+//        }
 
         for (Explote explotes : ex) {
             explotes.paint(g);
@@ -90,8 +95,8 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        tank.move();
-        tank2.move();
+        p1.move();
+        p2.move();
         
 
         for (Bullet b : bullets) {
@@ -129,7 +134,7 @@ public class Board extends JPanel implements ActionListener {
 
         @Override
         public void mouseWheelMoved(MouseWheelEvent mwe) {
-            tank.mouseWheelMoved(mwe);
+            p2.mouseWheelMoved(mwe);
         }
 
     }
@@ -138,14 +143,14 @@ public class Board extends JPanel implements ActionListener {
 
         @Override
         public void keyReleased(KeyEvent e) {
-            tank.keyReleased(e);
-            tank2.keyReleased(e);
+            p1.keyReleased(e);
+            p2.keyReleased(e);
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
-            tank.keyPressed(e);
-            tank2.keyPressed(e);
+            p1.keyPressed(e);
+            p2.keyPressed(e);
         }
 
     }
@@ -154,7 +159,7 @@ public class Board extends JPanel implements ActionListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            tank.fire(5);
+            p2.fire(5);
         }
 
     }
