@@ -57,7 +57,6 @@ public class Board extends JPanel implements ActionListener {
         timer = new Timer(DELAY, this);
         timer.start();
         bullets = new LinkedList<>();
-        bullets2 = new LinkedList<>();
         ex = new LinkedList<>();
         ex2 = new LinkedList<>();
 
@@ -107,12 +106,12 @@ public class Board extends JPanel implements ActionListener {
                     exp = new Explote(rutaBullet, 60, 60, 18, 50, false,
                             (int) b.getX(), (int) b.getY(), 0);
                     ex.add(exp);
-
-                }
+                }                
             }
         }
         repaint();
         checkCollisions();
+        checkCollisionBullet();
     }
 
     private class Wheel implements MouseWheelListener {
@@ -149,23 +148,42 @@ public class Board extends JPanel implements ActionListener {
 
     }
 
-    public boolean checkCollisions() {
+    public void checkCollisions() {
         boolean collision = false;
 
         if ((p1.getRectangle().getShape().intersects((Rectangle) p2.getRectangle().getShape()))) {
             collision = true;
-
+            
             if (collision == true) {
-                System.out.println("IMPACTO");
-                exp = new Explote(rutaBullet, 60, 60, 18, 50, false,
-                             (int)p1.getX(),  (int)p1.getY(), 0);
-                    ex.add(exp);
-                
-                
+                effectCollision();
             }
         }
-        return collision;  
+    }
+    
+    public void checkCollisionBullet(){
+        for (Bullet b: bullets){
+           if(b.getShape().intersects((Rectangle)p2.getRectangle().getShape())){               
+               
+               System.out.println("VIDA DE TANKE 2 -> --");
+               
+           }else if(b.getShape().intersects((Rectangle)p1.getRectangle().getShape())){
+               System.out.println("VIDA DE TANKE 1 -> --");
+           }   
+        }
+    }
+    
 
+    private void effectCollision() {
+        exp = new Explote(rutaBullet, 60, 60, 18, 50, false,
+                (int) p1.getX() + p1.getWidth(), (int) p1.getY() + p1.getHeight(), 0);
+        exp2 = new Explote(rutaBullet, 60, 60, 18, 50, false,
+                (int) p2.getX() + p2.getWidth(), (int) p2.getY() + p2.getHeight(), 0);
+        ex.add(exp);
+        ex.add(exp2);
+        p1.setX(p1.getX() - 5);
+        p1.setY(p1.getY() + 5);
+        p2.setX(p2.getX() + 5);
+        p2.setY(p2.getY() - 5);
     }
 
     public static boolean inBoard(double x,
