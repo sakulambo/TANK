@@ -18,7 +18,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.awt.geom.AffineTransform;
 import java.util.LinkedList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -35,7 +34,9 @@ public class Board extends JPanel implements ActionListener {
     public static LinkedList<Bullet> bullets2;
     public static LinkedList<Explote> ex, ex2;
     private Explote exp;
+    private Explote exp2;
     private String rutaBullet = "src/imatges/exploteBullet.png";
+    private String rutaDeath = "src/imatges/exploteDeath.png";
     private String rutaImg = "src/imatges/";
 
     public Board() {
@@ -83,13 +84,12 @@ public class Board extends JPanel implements ActionListener {
             }
         }
 
-//        for (Bullet b : bullets2) {
-//            if (b.isVisible()) {
-//                b.paint(g);
-//            }
-//        }
         for (Explote explotes : ex) {
             explotes.paint(g);
+        }
+
+        for (Explote ex : ex2) {
+            ex.paint(g);
         }
     }
 
@@ -106,26 +106,11 @@ public class Board extends JPanel implements ActionListener {
                     b.setVisible(false);
                     exp = new Explote(rutaBullet, 60, 60, 18, 50, false,
                             (int) b.getX(), (int) b.getY(), 0);
-                    System.out.println((int) b.getX() + "," + (int) b.getY());
-                    System.out.println((int) exp.getX() + "," + (int) exp.getY());
                     ex.add(exp);
 
                 }
             }
         }
-//        for (Bullet b: bullets2) {
-//            if (b.isVisible()) {
-//                b.move();
-//
-//                if (!inBoard(b.getX(), b.getY())) {
-//                    b.setVisible(true);
-//                    System.out.println("hola25");
-//                    exp = new Explote(rutaBullet, 60, 60, 18, 50, false, 
-//                            (int) b.getX(), (int) b.getY(), 0);
-//                    ex2.add(exp);
-//                }
-//            }
-//        }
         repaint();
         checkCollisions();
     }
@@ -164,18 +149,23 @@ public class Board extends JPanel implements ActionListener {
 
     }
 
-    public void checkCollisions() {
+    public boolean checkCollisions() {
+        boolean collision = false;
 
-        Rectangle.Double r1 = p1.getBounds();
-        Rectangle.Double r2 = p2.geBounds();
-        
-         AffineTransform transform = AffineTransform.getRotateInstance(Math.toRadians(p1.getTurret().getAngle()), p1.getX()
-                + (p1.getWidth() / 2) - 2, p1.getY() + (p1.getHeight() / 2) - 3);
-         r1.setRect(r1);
+        if ((p1.getRectangle().getShape().intersects((Rectangle) p2.getRectangle().getShape()))) {
+            collision = true;
 
-        if (r1.intersects(r2)) {
-
+            if (collision == true) {
+                System.out.println("IMPACTO");
+                exp = new Explote(rutaBullet, 60, 60, 18, 50, false,
+                             (int)p1.getX(),  (int)p1.getY(), 0);
+                    ex.add(exp);
+                
+                
+            }
         }
+        return collision;  
+
     }
 
     public static boolean inBoard(double x,

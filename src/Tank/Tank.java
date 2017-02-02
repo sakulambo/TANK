@@ -8,6 +8,7 @@ package Tank;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -21,6 +22,7 @@ public class Tank extends ImageObj {
     protected TankPiece body;
     protected TankPiece turret;
     protected TankPiece radar;
+    protected Square rectangle;
 
     private int up;
     private int down;
@@ -36,6 +38,9 @@ public class Tank extends ImageObj {
         this.radar = new TankPiece(radar, x, y, 7, 11, angle, visible);
         this.width = body.getWidth();
         this.height = body.getHeight();
+        this.rectangle = new Square(this, Color.yellow);
+        System.out.println(super.width);
+        System.out.println(super.height);
     }
 
     public double getX() {
@@ -126,11 +131,20 @@ public class Tank extends ImageObj {
         this.height = height;
     }
 
+    public Square getRectangle() {
+        return rectangle;
+    }
+
+    public void setRectangle(Square rectangle) {
+        this.rectangle = rectangle;
+    }
+
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         this.getBody().paint(g);
         this.getTurret().paint(g);
         this.getRadar().paint(g);
+        this.getRectangle().paint(g);
 
     }
 
@@ -150,6 +164,8 @@ public class Tank extends ImageObj {
             x = x0;
             y = y0;
             this.setTank(anglet);
+            this.rectangle.setX(x);
+            this.rectangle.setY(y);
         }
 
     }
@@ -164,91 +180,14 @@ public class Tank extends ImageObj {
         radar.setX(x);
         radar.setY(y);
         radar.setAngle(anglet);
-
+        rectangle.setShape(new Rectangle((int)body.getX(), (int)body.getY(),
+                this.getWidth(), this.getHeight()));
+        rectangle.setX(x);
+        rectangle.setY(y);
     }
-
-    public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
-
-        if (key == KeyEvent.VK_W) {
-            up = 1;
-        }
-
-        if (key == KeyEvent.VK_S) {
-            down = 1;
-        }
-
-        if (key == KeyEvent.VK_D) {
-            right = 1;
-        }
-
-        if (key == KeyEvent.VK_A) {
-            left = 1;
-        }
-
-        if (key == KeyEvent.VK_E) {
-            this.angle++;
-        }
-
-        if (key == KeyEvent.VK_E) {
-            this.angle--;
-        }
-
-        if (key == KeyEvent.VK_SPACE) {
-            this.fire(5);
-        }
-    }
-
-    public void keyReleased(KeyEvent e) {
-
-        int key = e.getKeyCode();
-
-        if (key == KeyEvent.VK_W) {
-            up = 0;
-        }
-
-        if (key == KeyEvent.VK_S) {
-            down = 0;
-        }
-
-        if (key == KeyEvent.VK_D) {
-            right = 0;
-        }
-
-        if (key == KeyEvent.VK_A) {
-            left = 0;
-        }
-
-    }
-
-    public void mouseClicked(MouseEvent e) {        
-            this.fire(5);
-    }
-
-    public void mouseWheelMoved(MouseWheelEvent e) {
-
-        int notches = e.getWheelRotation();
-
-        if (notches < 0) {
-
-            double anglet = turret.getAngle();
-            anglet = anglet - 5;
-            this.getTurret().setAngle(anglet);
-            this.getRadar().setAngle(anglet);
-            System.out.println(this.getTurret().getAngle());
-            wdown = 1;
-        } else if (notches > 0) {
-
-            double anglet = turret.getAngle();
-            anglet = anglet + 5;
-            this.getTurret().setAngle(anglet);
-            this.getRadar().setAngle(anglet);
-            System.out.println(this.getTurret().getAngle());
-        }
-        if (notches == 0) {
-
-        }
-
+ 
+    public void mouseClicked(MouseEvent e) {
+        this.fire(5);
     }
 
     public void fire(int power) {

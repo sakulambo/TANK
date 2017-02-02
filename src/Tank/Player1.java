@@ -244,9 +244,7 @@ public class Player1 extends Tank {
 
     }
 
-    Rectangle2D.Double getBounds() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     
     
     
