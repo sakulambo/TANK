@@ -14,19 +14,17 @@ import java.awt.geom.Rectangle2D;
  * @author sakulambo
  */
 public class Player1 extends Tank {
-    
+
     private int up;
     private int down;
     private int right;
     private int left;
     private int wup;
     private int wdown;
-    
-    
-    
-    public Player1(String bod, String turret, String radar, double x, double y, double vx, double vy, double angle, boolean visible) {
-        super(bod, turret, radar, x, y, vx, vy, angle, visible);
-        
+
+    public Player1(String bod, String turret, String radar, double x, double y, double vx, double vy, double angle, int life, boolean visible) {
+        super(bod, turret, radar, x, y, vx, vy, angle, life, visible);
+        this.life = life;
     }
 
     public int getUp() {
@@ -156,10 +154,14 @@ public class Player1 extends Tank {
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
-    
-    
-    
-    
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
     
     
     public void keyPressed(KeyEvent e) {
@@ -186,7 +188,6 @@ public class Player1 extends Tank {
             anglet = anglet + 5;
             this.getTurret().setAngle(anglet);
             this.getRadar().setAngle(anglet);
-            System.out.println("Player 1 Angle++ -> "+this.getTurret().getAngle());
         }
 
         if (key == KeyEvent.VK_K) {
@@ -194,14 +195,13 @@ public class Player1 extends Tank {
             anglet = anglet - 5;
             this.getTurret().setAngle(anglet);
             this.getRadar().setAngle(anglet);
-            System.out.println("Player 1 Angle-- -> "+this.getTurret().getAngle());
         }
 
         if (key == KeyEvent.VK_SPACE) {
             this.fire(5);
         }
     }
-    
+
     public void keyReleased(KeyEvent e) {
 
         int key = e.getKeyCode();
@@ -223,7 +223,7 @@ public class Player1 extends Tank {
         }
 
     }
-    
+
     public void move() {
         double x0 = 0, y0 = 0;
 
@@ -244,11 +244,4 @@ public class Player1 extends Tank {
 
     }
 
-    
-    
-    
-    
-   
-   
-    
 }

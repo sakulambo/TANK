@@ -52,8 +52,8 @@ public class Board extends JPanel implements ActionListener {
         });
         setFocusable(true);
         setBackground(Color.BLACK);
-        p1 = new Player1(rutaImg + "body.png", rutaImg + "turret.png", rutaImg + "radar.png", 50, 50, 5, 5, 0, true);
-        p2 = new Player2(rutaImg + "greenBody.png", rutaImg + "greenTurret.png", rutaImg + "yellowRadar.png", 100, 100, 5, 5, 0, true);
+        p1 = new Player1(rutaImg + "body.png", rutaImg + "turret.png", rutaImg + "radar.png", 50, 50, 5, 5, 0, 100, true);
+        p2 = new Player2(rutaImg + "greenBody.png", rutaImg + "greenTurret.png", rutaImg + "yellowRadar.png", 100, 100, 5, 5, 0, 100, true);
         timer = new Timer(DELAY, this);
         timer.start();
         bullets = new LinkedList<>();
@@ -106,7 +106,7 @@ public class Board extends JPanel implements ActionListener {
                     exp = new Explote(rutaBullet, 60, 60, 18, 50, false,
                             (int) b.getX(), (int) b.getY(), 0);
                     ex.add(exp);
-                }                
+                }
             }
         }
         repaint();
@@ -152,26 +152,28 @@ public class Board extends JPanel implements ActionListener {
         boolean collision = false;
 
         if ((p1.getRectangle().getShape().intersects((Rectangle) p2.getRectangle().getShape()))) {
-            collision = true;
-            
-            if (collision == true) {
-                effectCollision();
+            effectCollision();
+        }
+    }
+
+    public void checkCollisionBullet() {
+
+        for (Bullet b : bullets) {
+            if (b.getOwner().equals(p2) && b.bulletHit(p1.getRectangle().getRectangle2D())) {
+                p1.setLife(--p1.life);
+                System.out.println("VIDA DEL TANKE 1 -> " + p1.getLife());
+                exp2 = new Explote(rutaBullet, 60, 60, 18, 50, false,
+                        (int) p1.getX() + p1.getWidth(), (int) p1.getY() + p1.getHeight(), 0);
+                ex2.add(exp2);
+            } else if (b.getOwner().equals(p1) && b.bulletHit(p2.getRectangle().getRectangle2D())) {
+                p2.setLife(--p2.life);
+                System.out.println("VIDA DEL TANKE 2 -> " + p2.getLife());
+                exp2 = new Explote(rutaBullet, 60, 60, 18, 50, false,
+                        (int) p2.getX() + p2.getWidth(), (int) p2.getY() + p2.getHeight(), 0);
+                ex2.add(exp2);
             }
         }
     }
-    
-    public void checkCollisionBullet(){
-        for (Bullet b: bullets){
-           if(b.getShape().intersects((Rectangle)p2.getRectangle().getShape())){               
-               
-               System.out.println("VIDA DE TANKE 2 -> --");
-               
-           }else if(b.getShape().intersects((Rectangle)p1.getRectangle().getShape())){
-               System.out.println("VIDA DE TANKE 1 -> --");
-           }   
-        }
-    }
-    
 
     private void effectCollision() {
         exp = new Explote(rutaBullet, 60, 60, 18, 50, false,
@@ -184,6 +186,10 @@ public class Board extends JPanel implements ActionListener {
         p1.setY(p1.getY() + 5);
         p2.setX(p2.getX() + 5);
         p2.setY(p2.getY() - 5);
+    }
+
+    private boolean winCondition() {
+        return p1.getLife() <= 0 || p2.getLife() <= 0;
     }
 
     public static boolean inBoard(double x,

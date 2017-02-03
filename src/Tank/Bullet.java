@@ -14,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  *
@@ -143,6 +144,10 @@ public class Bullet extends ShapeObj {
         this.setX(this.getX() + Utilities.calculCoordenadaX(this.getX(), this.getAngle(), this.getVx()));
         this.setY(this.getY() + Utilities.calculCoordenadaY(this.getY(), this.getAngle(), this.getVy()));
         this.setShape(new Ellipse2D.Double(this.getX(), this.getY(), this.getPower(), this.getPower()));
+    }
+    
+    public boolean bulletHit(Rectangle2D tank){        
+        return shape.intersects(tank);
     }
 
 }

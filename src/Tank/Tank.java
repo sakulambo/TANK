@@ -22,7 +22,8 @@ public class Tank extends ImageObj {
     protected TankPiece body;
     protected TankPiece turret;
     protected TankPiece radar;
-    protected Square rectangle;
+    protected Square rectangle;    
+    protected int life;
 
     private int up;
     private int down;
@@ -31,7 +32,7 @@ public class Tank extends ImageObj {
     private int wup;
     private int wdown;
 
-    public Tank(String bod, String turret, String radar, double x, double y, double vx, double vy, double angle, boolean visible) {
+    public Tank(String bod, String turret, String radar, double x, double y, double vx, double vy, double angle,int life, boolean visible) {
         super(null, x, y, vx, vy, angle, visible);
         this.body = new TankPiece(bod, x, y, 0, 0, angle, visible);
         this.turret = new TankPiece(turret, x, y, 8, -8, angle, visible);
@@ -39,8 +40,7 @@ public class Tank extends ImageObj {
         this.width = body.getWidth();
         this.height = body.getHeight();
         this.rectangle = new Square(this, Color.yellow);
-        System.out.println(super.width);
-        System.out.println(super.height);
+        this.life = life;
     }
 
     public double getX() {
@@ -138,6 +138,16 @@ public class Tank extends ImageObj {
     public void setRectangle(Square rectangle) {
         this.rectangle = rectangle;
     }
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
+    
+    
 
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;

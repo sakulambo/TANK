@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
 
 /**
  *
@@ -20,11 +21,14 @@ public class Square extends ShapeObj {
     
     private Tank owner;
     private Rectangle rec;
+    private Rectangle2D rec2;
 
     public Square(Tank owner, Color color) {
-        super(0, 0, owner.getVx(), owner.getVy(),owner.getBody().getAngle(), null, color, true);        
+        super(0, 0, 4, 4,owner.getBody().getAngle(), null, color, true);        
         
-        rec = new Rectangle((int)owner.getX(), (int)owner.getY(), owner.getWidth(), owner.getHeight());   
+        rec = new Rectangle((int)owner.getX(), (int)owner.getY(), owner.getWidth(), owner.getHeight()); 
+           
+        
         System.out.println(owner.getX());
         System.out.println(owner.getY());
         System.out.println(owner.getWidth());
@@ -38,13 +42,6 @@ public class Square extends ShapeObj {
         
     }
 
-    public Rectangle getRec() {
-        return rec;
-    }
-
-    public void setRec(Rectangle rec) {
-        this.rec = rec;
-    }
 
     public Tank getOwner() {
         return owner;
@@ -135,7 +132,9 @@ public class Square extends ShapeObj {
         g2d.draw(this.getShape());
     }
     
-    
+    public Rectangle2D getRectangle2D(){
+        return getShape().getBounds2D();
+    }
 
   
 }

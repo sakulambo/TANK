@@ -23,11 +23,14 @@ public class Player2 extends Tank{
     private int left;
     private int wup;
     private int wdown;
-    
-    public Player2(String bod, String turret, String radar, double x, double y, double vx, double vy, double angle, boolean visible) {
-        super(bod, turret, radar, x, y, vx, vy, angle, visible);        
-       
+
+    public Player2(String bod, String turret, String radar, double x, double y, double vx, double vy, double angle, int life, boolean visible) {
+        super(bod, turret, radar, x, y, vx, vy, angle, life, visible);
+        
+        this.life = life;
     }
+    
+    
 
     public int getUp() {
         return up;
@@ -214,7 +217,6 @@ public class Player2 extends Tank{
             anglet = anglet - 5;
             this.getTurret().setAngle(anglet);
             this.getRadar().setAngle(anglet);
-            System.out.println("Player 2 Angle-- -> "+this.getTurret().getAngle());
             wdown = 1;
         } else if (notches > 0) {
 
@@ -222,7 +224,6 @@ public class Player2 extends Tank{
             anglet = anglet + 5;
             this.getTurret().setAngle(anglet);
             this.getRadar().setAngle(anglet);
-            System.out.println("Player 2 Angle++ -> "+this.getTurret().getAngle());
         }
         if (notches == 0) {
 
