@@ -165,12 +165,14 @@ public class Board extends JPanel implements ActionListener {
                 exp2 = new Explote(rutaBullet, 60, 60, 18, 50, false,
                         (int) p1.getX() + p1.getWidth(), (int) p1.getY() + p1.getHeight(), 0);
                 ex2.add(exp2);
+                bullets.remove(b);
             } else if (b.getOwner().equals(p1) && b.bulletHit(p2.getRectangle().getRectangle2D())) {
                 p2.setLife(--p2.life);
                 System.out.println("VIDA DEL TANKE 2 -> " + p2.getLife());
                 exp2 = new Explote(rutaBullet, 60, 60, 18, 50, false,
                         (int) p2.getX() + p2.getWidth(), (int) p2.getY() + p2.getHeight(), 0);
                 ex2.add(exp2);
+                bullets.remove(b);
             }
         }
     }
